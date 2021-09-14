@@ -13,10 +13,10 @@ cd raymond
 ```
 #### Windows
 ```
-python raynond(win).py - u <web applicaion domain>
+python raymond(win).py - u <web applicaion domain>
 ```
 
 #### Linux
 ```
-python3 raynond(lin).py - u <web applicaion domain>
+python3 raymond(lin).py - u <web applicaion domain>
 ```
