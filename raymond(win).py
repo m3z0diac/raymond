@@ -8,6 +8,17 @@ import pyfiglet
 from datetime import datetime
 
 
+r = "\033[1;31m"
+g = "\033[1;32m"
+y = "\033[1;33m"
+b = "\033[1;34m"
+d = "\033[2;37m"
+R = "\033[1;41m"
+Y = "\033[1;43m"
+B = "\033[1;44m"
+w = "\033[0m"
+
+
 def getArg():
 
     parser = optparse.OptionParser()
@@ -30,7 +41,7 @@ def getCMSResults(url,verbose=False):
     try:        
         res=requests.get(f"https://whatcms.org/API/Tech?key=746f350b4b16644cd12fdb77a8ea14155c083cd3269036b30126e423ba0d7d61ffdd4f&url={url}")
     except requests.exceptions.ConnectionError:
-        print("Unable To Connect To the Internet.")
+        print(f"{r}Unable To Connect To the Internet.{w}")
         exit(1)
     if res.status_code==200:
         if res.json()["result"]["code"]==101:
@@ -39,7 +50,7 @@ def getCMSResults(url,verbose=False):
         if res.json()["result"]["code"]==120:
             tts=float(res.json()["retry_in_seconds"])
             if verbose:
-                print(f"Maxium API Request Reached. Trying Again in {tts} seconds.  ")
+                print(f"{e}Maxium API Request Reached. Trying Again in {tts} seconds.{w}  ")
             time.sleep(tts)
             return getCMSResults(url,verbose)
         if verbose:
@@ -50,23 +61,25 @@ def getCMSResults(url,verbose=False):
         wp = False
         try:
             for i in range(len(infos)):
-                print(infos[i]['name'])
+                print(f"	{g}{infos[i]['name']}{w}")
+                sleep(0.1)
                 if infos[i]['name'] == "WordPress":
                     wp = True
                     if (infos[i]['version']):
                         wpv = infos[i]['version']
                     else: wpv = ""
+                print("--------------------------------")
             if wp:
                 wpFucker(f"https://{url}")
                 print("Trying catch WordPress Version ...")
                 if wp != "":
-                    print(f"WordPress Version Detected {wpv}\n\n")
+                    print(f"{y}WordPress Version Detected {g}{wpv}{w}\n\n")
                     print("Search For WordPress Version Vurnabaletys ...")
                     vuln = requests.get(f"https://wpvulndb.com/api/v2/wordpresses/{wpv}")
                     if "Error" not in vuln.text:
                         print(vuln.text)
                     else:
-                        print("[-] Can't search for WordPress {wpv} Vurnabaletys")
+                        print(f"{r}[-] Can't search for WordPress {g}{wpv} Vurnabaletys{w}")
                 else: print("WordPress Version Not Detected\n\n")
         except:
             pass
@@ -76,7 +89,7 @@ def getCMSResults(url,verbose=False):
             print("**************************************************************")
             print(f"\n-------{url} Social Media Informations-------\n")
             for i in range(len(sinfos)):
-                print(f"{sinfos[i]['network']} ==> {sinfos[i]['url']}")
+                print(f"{y}{sinfos[i]['network']} ==> {g}{sinfos[i]['url']}{w}")
                 if (sinfos[i]['network'] == "instagram"):
                     name = sinfos[i]['profile']
             print("\n\n")
@@ -91,8 +104,8 @@ def admin(url, wordlist):
                 path = f"http://{url}/{admin}"
                 request = requests.get(path)
                 if request.status_code == 200 and "login" in request.text:
-                    print("[+] Admin panel Found")
-                    print(f"{path}\n")
+                    print(f"{y}[+] Admin panel Found{w}")
+                    print(f"{g}{path}{w}\n")
                     break
             except:
                 pass
@@ -169,7 +182,7 @@ def useRecon(user_):
     for social, url in links.items():
         request = requests.get(f"{url}")
         if request.status_code == 200:
-            print(f"{social} : {url}")
+            print(f"{y}{social}{b}[+]Found :{g}{url}{w}")
             
 
 
@@ -179,14 +192,14 @@ def checkRobots(url):
     print("-------Checking /robots.txt-------\n")
     sleep(5)
     if request.status_code == 200:
-        print(f"[+] http://{url}/robots.txt Found\n")
+        print(f"{y}[+]{g} http://{url}/robots.txt Found{w}\n")
         print("**** trying reading content ****\n")
         try:
-            print(request.text)
+            print(f"{g}request.text{w}")
         except:
-            print("[-] can't reading the content of robots.txt")
+            print(f"{r}[-] can't reading the content of robots.txt{w}")
     else:
-        print("[-] robots.txt Not Exist")
+        print(f"{r}[-] robots.txt Not Exist")
 
 
 def wpFucker(url):
@@ -201,13 +214,13 @@ def wpFucker(url):
     print("Trying catch xmlrpc ...")
     xmlrpc_req = requests.get(f"{url}/xmlrpc.php")
     if "XML-RPC server accepts POST requests only." in xmlrpc_req.text:
-        print(f"[+] XML-RPC interface Available Under {url}/xmlrpc.php\n\n")
-    else : print("[-] XML-RPC not Available!\n\n")
+        print(f"{g}[+]{w}{y} XML-RPC interface Available Under {url}/xmlrpc.php{w}\n\n")
+    else : print(f"{r}[-] XML-RPC not Available!{w}\n\n")
 
     print("Trying catch uploads ...")
     request = requests.get(f"{url}/wp-content/uploads")
     if "/wp-content/uploads" in request.text:
-        print(f"[+] Uploads Path Found : {url}/wp-content/uploads\n\n")
+        print(f"{g}[+] Uploads Path Found : {url}/wp-content/uploads{w}\n\n")
     else : print(f"[-] Uploads Path Not Found\n\n")
 
 def IpEnum(url):
@@ -251,7 +264,7 @@ def PortScann(url):
     ports = data['response']['port']
     for i in range(len(ports)):
         if ports[i]['status'] == "open":
-            print(f"[+] port {ports[i]['number']} is {ports[i]['status']} {ports[i]['service']}")
+            print(f"[+] port {y}{ports[i]['number']} is {g}{ports[i]['status']} {r}{ports[i]['service']}{w}")
             sleep(0.1)
 
 
@@ -271,29 +284,30 @@ def serverEnum(url):
 def banner(url):
     print("-" * 50)
     ascii_banner = pyfiglet.figlet_format("Raymond")
-    print(ascii_banner)
-    print("Scanning Target: " + url)
-    print("Scanning started at:" + str(datetime.now()))
+    print(f"{b}{ascii_banner}{w}")
+    print(f"{d}Contact Author : hamzaelansari453@gmail.com{w}")
+    print(f"{r}Scanning Target:{g} {url}{w}")
+    print(f"{r}Scanning started at: {y}{str(datetime.now())}{w}")
     print("-" * 50)
 
 
 
 def HandelOpts():
     banner(webapp)
-    user_options = """
-    [1] - Full scan
-    [2] - CMS scan (social media accounts - riscky paths scan - user recon ...)
-    [3] - Get web application request Headers
-    [4] - Robots page scan
-    [5] - DNS Enumeration
-    [6] - Get all hosts on the target Server
-    [7] - Scan commun ports
-    [8] - Sub network informations
-    [9] - Ip addresse informations
-    [10]- Subdomains Enumeration (not all about just 50 %)
-    [11]- Brute Force admin panel page
-    [12]- Username rcon (check 65 website accounts ...)
-    [0] - Exit Raymond Tool
+    user_options = f"""
+    {y}[1]{g} - Full scan{w}
+    {y}[2]{g} - CMS scan (social media accounts - riscky paths scan - user recon ...){w}
+    {y}[3]{g} - Get web application request Headers{w}
+    {y}[3]{g} - Robots page scan{w}
+    {y}[4]{g} - DNS Enumeration{w}
+    {y}[5]{g} - Get all hosts on the target Server{w}
+    {y}[6]{g} - Scan commun ports{w}
+    {y}[7]{g} - Sub network information{w}
+    {y}[8]{g} - Ip address information{w}
+    {y}[9]{g} - Subdomains Enumeration (not all just about 50 %){w}
+    {y}[10]{g}- Brute Force admin panel page{w}
+    {y}[11]{g}- Username rcon (check 65 website accounts ...){w}
+    {y}[0]{g} - Exit Raymond Tool{w}
     """
     try:
         user_input = int(input(user_options))
@@ -342,11 +356,11 @@ def HandelOpts():
             subDomainsEnum(webapp)
         elif user_input == 11:
             admin(webapp,"files/admins.ini")
-        elif user_input == 13:
+        elif user_input == 12:
             userTarget = input("target username: ")
             useRecon(userTarget)
         elif user_input == 0:
-            print("Scanning Finiched at:" + str(datetime.now()))
+            print(f"{r}Scanning finished at:{y}{str(datetime.now())}{w}")
             exit(0)
     else:
         print("Uknowne option.")
