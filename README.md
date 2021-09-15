@@ -22,4 +22,4 @@ python3 raymond(lin).py - u <web applicaion domain>
 ```
 
 ## About
-  The Name Raymond “Red” Reddington is a main character in the NBC series The Blacklist, So that you can say this tool can search and take any information about the target website from many resources just like was raymond do.. and in the next version of tool, I will add the option of multiscan that allow you scan black list contain many websites at the same time.
+  The Name Raymond “Red” Reddington is a main character in the NBC series The Blacklist, So that you can say this tool can search and take any information about the target website from many resources just like was raymond do.. and in the next version of tool, I will add the option of multiscan that allow you scan black list targets at the same time.
