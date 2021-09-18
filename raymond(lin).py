@@ -213,7 +213,7 @@ def wpFucker(url):
 
     print("Trying catch xmlrpc ...")
     xmlrpc_req = requests.get(f"{url}/xmlrpc.php")
-    if "XML-RPC server accepts POST requests only." in xmlrpc_req.text:
+    if "XML-RPC server accepts POST requests only." not in xmlrpc_req.text:
         print(f"{g}[+]{w}{y} XML-RPC interface Available Under {url}/xmlrpc.php{w}\n\n")
     else : print(f"{r}[-] XML-RPC not Available!{w}\n\n")
 
