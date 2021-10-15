@@ -298,15 +298,15 @@ def HandelOpts():
     {y}[1]{g} - Full scan{w}
     {y}[2]{g} - CMS scan (social media accounts - riscky paths scan - user recon ...){w}
     {y}[3]{g} - Get web application request Headers{w}
-    {y}[3]{g} - Robots page scan{w}
-    {y}[4]{g} - DNS Enumeration{w}
-    {y}[5]{g} - Get all hosts on the target Server{w}
-    {y}[6]{g} - Scan commun ports{w}
-    {y}[7]{g} - Sub network information{w}
-    {y}[8]{g} - Ip address information{w}
-    {y}[9]{g} - Subdomains Enumeration (not all just about 50 %){w}
-    {y}[10]{g}- Brute Force admin panel page{w}
-    {y}[11]{g}- Username rcon (check 65 website accounts ...){w}
+    {y}[4]{g} - Robots page scan{w}
+    {y}[5]{g} - DNS Enumeration{w}
+    {y}[6]{g} - Get all hosts on the target Server{w}
+    {y}[7]{g} - Scan commun ports{w}
+    {y}[8]{g} - Sub network information{w}
+    {y}[9]{g} - Ip address information{w}
+    {y}[10]{g} - Subdomains Enumeration (not all just about 50 %){w}
+    {y}[11]{g}- Brute Force admin panel page{w}
+    {y}[12]{g}- Username rcon (check 65 website accounts ...){w}
     {y}[0]{g} - Exit Raymond Tool{w}
     """
     try:
