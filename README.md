@@ -1,6 +1,6 @@
 
 ## Raymond Tool
- ##### Rayomd is an active enumaration Framwork that scan all possible informations<br>
+ ##### active enumaration Framwork<br>
   ![Programmer and Problems solver](https://raw.githubusercontent.com/hamza07-w/raymond/main/files/1.png)
   
 ## How to use
