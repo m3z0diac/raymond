@@ -28,7 +28,7 @@ webapp = options.url
 def getCMSResults(url,verbose=False):
 
     try:        
-        res=requests.get(f"https://whatcms.org/API/Tech?key=746f350b4b16644cd12fdb77a8ea14155c083cd3269036b30126e423ba0d7d61ffdd4f&url={url}")
+        res=requests.get(f"https://whatcms.org/API/Tech?key=wqidan5q5rcpls8jd9by2ylujcs50zan8i0802umpspvy13ndg5mmug1c1u6856fdfmbik&url={url}")
     except requests.exceptions.ConnectionError:
         print("Unable To Connect To the Internet.")
         exit(1)
