@@ -9,7 +9,6 @@ from datetime import datetime
 
 
 def getArg():
-
     parser = optparse.OptionParser()
     parser.add_option("-u", "--url", dest="url", help="Website Target EX: example.com")
     (options, arg) = parser.parse_args()
